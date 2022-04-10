@@ -17,8 +17,8 @@
                                     <div class="col-lg-10 col-md-9">
                                         <div class="row align-items-end">
                                             <div class="col-md-7 text-md-start text-center mt-4 mt-sm-0">
-                                                <h3 class="title mb-0">Frederick Sallah</h3>
-                                                <small class="text-muted h6 me-2">Technical Program Manager</small>
+                                                <h3 class="title mb-0">{{email}}</h3>
+                                                <small class="text-muted h6 me-2">{{profession}}</small>
                                                 <ul class="list-inline mb-0 mt-3">
                                                     <li class="list-inline-item me-2"><a href="javascript:void(0)" class="text-muted" title="Instagram"><i data-feather="instagram" class="fea icon-sm me-2"></i>fredysallah@gmail.com</a></li>
 
@@ -50,18 +50,29 @@ export default {
 
       return{
   
-
+        email : "",
+        profession:""
 
       }
 
   }, 
 
 
-   methods: {
+        methods: {
 
 
 
-   }
+
+
+        
+        },
+
+
+         create(){
+
+            this.email = localStorage.getItem('email');
+            this.profession = localStorage.getItem('profession');
+        }
 
 
 }

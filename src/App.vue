@@ -39,6 +39,7 @@ export default {
        localStorage.email = session_data.email;
        localStorage.token = session_data.token;
        localStorage.role = session_data.role;
+       localStorage.profession = session_data.profession;
 
     },
 
@@ -66,6 +67,7 @@ export default {
       localStorage.removeItem('email');
       localStorage.removeItem('token');
       localStorage.removeItem('role');
+      localStorage.removeItem('profession');
 
     },
 
@@ -74,9 +76,10 @@ export default {
      //print the session.
      printing_session(){
 
-        console.log("=========printing email============"); console.log(localStorage.getItem('email'));
-        console.log("=========printing token============"); console.log(localStorage.getItem('token'));
+        console.log("=========printing email==========="); console.log(localStorage.getItem('email'));
+        console.log("=========printing token==========="); console.log(localStorage.getItem('token'));
         console.log("=========printing role============"); console.log(localStorage.getItem('role'));
+        console.log("=========printing profession======"); console.log(localStorage.getItem('profession'));
      }
 
 
