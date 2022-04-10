@@ -72,6 +72,9 @@ export default {
 
             this.email = localStorage.getItem('email');
             this.profession = localStorage.getItem('profession');
+
+            console.log("printing profession");
+            console.log(localStorage.getItem('profession'));
         }
 
 
