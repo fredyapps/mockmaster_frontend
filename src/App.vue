@@ -62,7 +62,7 @@ export default {
 
     // closes the session when the user logs out.
     closing_session(){
-      
+
       localStorage.removeItem('email');
       localStorage.removeItem('token');
       localStorage.removeItem('role');
@@ -103,6 +103,12 @@ export default {
 
 <style>
 /* @import '@/assets/base.css'; */
+@import '@/assets/css/bootstrap.min.css';
+@import '@/assets/css/materialdesignicons.min.css';
+@import '@/assets/css/tiny-slider.css';
+@import '@/assets/css/style.css';
+@import '@/assets/css/colors/default.css';
+
 
 
 </style>

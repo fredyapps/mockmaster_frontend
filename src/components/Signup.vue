@@ -15,7 +15,7 @@
                                                 <div class="row">
 
                                                     <div class="col-md-12 text-center">
-                                                       <img src="images/mock_logo.png"  width="90" alt="">
+                                                       <!-- <img src="images/mock_logo.png"  width="90" alt=""> -->
                                                     </div><!--end col-->
 
                                                     <div v-if="failed==true" class="alert alert-outline-danger alert-pills" role="alert">

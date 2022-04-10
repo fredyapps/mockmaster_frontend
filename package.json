@@ -1,16 +1,16 @@
 {
   "name": "mockmaaster",
   "version": "0.0.0",
-  "engines": {
-    "node": "14.16.1"
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port 5050"
+    "preview": "vite preview --port 5050",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "express": "^4.17.3",
+    "serve-static": "^1.15.0",
     "vue": "^3.2.31",
     "vue-resource": "^1.5.3",
     "vue-router": "^4.0.12"

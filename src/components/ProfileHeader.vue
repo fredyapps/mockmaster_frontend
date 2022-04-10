@@ -11,7 +11,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-lg-2 col-md-3 text-md-start text-center">
-                                        <img src="images/mock_logo.png" class="avatar avatar-large shadow d-block mx-auto" alt="">
+                                        <!-- <img src="images/mock_logo.png" class="avatar avatar-large shadow d-block mx-auto" alt=""> -->
                                     </div><!--end col-->
     
                                     <div class="col-lg-10 col-md-9">
