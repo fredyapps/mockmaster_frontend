@@ -138,13 +138,13 @@ export default {
 
     new_cisa_exam() {
 
-      axios({ method: "GET", "url": this.api_url+"/examAPIs/v1/cisaQuestions" }).then(result => {
+      axios({ method: "GET", "url": this.api_url+'/examAPIs/v1/cisaQuestions' }).then(result => {
         
-         console.error(result.data);
+         console.log(result);
          this.questions = result.data;
          this.current_question = this.questions[this.qindex];
       }, error => {
-          console.error(error);
+          console.log(error);
       });
     },
 
@@ -169,8 +169,8 @@ export default {
         
         axios(config).then(response => {
         console.log(JSON.stringify(response.data));
-        this.exam_layout=false;
-        this.result_layout=true;
+        this.exam_layout = false;
+        this.result_layout = true;
         this.results = response.data;
         
         }, error => {
