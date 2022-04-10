@@ -21,6 +21,13 @@
                     </div><!--end col-->
                 </div><!--end row-->
 
+                <div v-if="loading" class="text-center">
+
+                        <div class="spinner-border" role="status">
+                                                               
+                        </div>
+                </div>
+
                          
             <div  v-if="exam_layout"  class="container">
                 <div class="row justify-content-center">
@@ -49,7 +56,7 @@
                                     
                                 </div>
 
-                                <a v-if="qindex > 100" @click="submit_cisa_exam" class="btn btn-info me-3 mt-3">Submit answers</a>
+                                <a v-if="qindex > 10" @click="submit_cisa_exam" class="btn btn-info me-3 mt-3">Submit answers</a>
                             </div>
                       
                 </div><!--end row-->
@@ -119,12 +126,14 @@ export default {
 
       return{
           questions:[],
+          mock:{},
           results:{},
           current_question:{},
           qindex:0,
           pick:0,
-          exam_layout:true,
+          exam_layout:false,
           result_layout:false,
+          loading:false,
 
 
       }
@@ -137,13 +146,26 @@ export default {
 
 
     new_cisa_exam() {
+      
+      this.loading = true;
 
-      axios({ method: "GET", "url": this.api_url+'/examAPIs/v1/cisaQuestions' }).then(result => {
+       var config = {
+        method: 'GET',
+        url: this.api_url+'/examAPIs/v1/cisaQuestions',
+        headers: { 
+            'user_token': localStorage.getItem('token'),
+        }
+        };
+      axios(config).then(result => {
         
-         console.log(result);
-         this.questions = result.data;
+         console.log(result.data);
+         this.questions = result.data.questions;
+         this.mock = result.data.mock;
+         this.loading = false;
+         this.exam_layout = true;
          this.current_question = this.questions[this.qindex];
       }, error => {
+          this.loading = false;
           console.log(error);
       });
     },
@@ -153,7 +175,8 @@ export default {
 
 
     submit_cisa_exam(){
- 
+        this.loading = true;
+        this.exam_layout = false;
         var data = JSON.stringify(this.questions);
         
         var config = {
@@ -161,20 +184,24 @@ export default {
         url: this.api_url+'/examAPIs/v1/cisaResults',
         headers: { 
             'Content-Type': 'application/json',
-            'exam_token': 'pppp',
-            'user_token': '555325147',
+            'exam_token': this.mock.exam_token,
+            'user_token': localStorage.getItem('token'),
         },
         data : data
         };
+
+        //https://tmmbackend.herokuapp.com/examAPIs/v1/cisaQuestions
         
         axios(config).then(response => {
+         this.loading = false;
+        console.log(response);
         console.log(JSON.stringify(response.data));
-        this.exam_layout = false;
+        
         this.result_layout = true;
         this.results = response.data;
         
         }, error => {
-        console.log(error);
+        console.log(error.response);
         });
     
     },
