@@ -138,7 +138,7 @@ export default {
 
     new_cisa_exam() {
 
-      axios({ method: "GET", "url": "http://localhost:9000/examAPIs/v1/cisaQuestions" }).then(result => {
+      axios({ method: "GET", "url": this.api_url+"/examAPIs/v1/cisaQuestions" }).then(result => {
         
          console.error(result.data);
          this.questions = result.data;
@@ -158,7 +158,7 @@ export default {
         
         var config = {
         method: 'post',
-        url: 'http://localhost:9000/examAPIs/v1/cisaResults',
+        url: this.api_url+'/examAPIs/v1/cisaResults',
         headers: { 
             'Content-Type': 'application/json',
             'exam_token': 'pppp',

@@ -154,7 +154,7 @@ export default {
             var data = JSON.stringify(this.candidate);
             var config = {
             method: 'post',
-            url: 'http://localhost:9000/onboarding/v1/register',
+            url: this.api_url+'/onboarding/v1/register',
             headers: { 
                 'Content-Type': 'application/json',
             },

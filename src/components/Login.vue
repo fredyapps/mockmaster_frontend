@@ -117,7 +117,7 @@ export default {
             var data = JSON.stringify(this.credentials);
             var config = {
             method: 'post',
-            url: 'http://localhost:9000/onboarding/v1/login',
+            url: this.api_url+'/onboarding/v1/login',
             headers: { 
                 'Content-Type': 'application/json',
             },
@@ -180,6 +180,7 @@ export default {
 
     created(){
 
+       console.log(this.foo);
      
     },
 
