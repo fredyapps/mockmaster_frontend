@@ -39,7 +39,7 @@ export default {
        localStorage.email = session_data.email;
        localStorage.token = session_data.token;
        localStorage.role = session_data.role;
-       localStorage.profession = session_data.profession;
+       localStorage.fullname = session_data.fullname;
 
     },
 
@@ -67,7 +67,7 @@ export default {
       localStorage.removeItem('email');
       localStorage.removeItem('token');
       localStorage.removeItem('role');
-      localStorage.removeItem('profession');
+      localStorage.removeItem('fullname');
 
     },
 
@@ -79,7 +79,7 @@ export default {
         console.log("=========printing email==========="); console.log(localStorage.getItem('email'));
         console.log("=========printing token==========="); console.log(localStorage.getItem('token'));
         console.log("=========printing role============"); console.log(localStorage.getItem('role'));
-        console.log("=========printing profession======"); console.log(localStorage.getItem('profession'));
+        console.log("=========printing profession======"); console.log(localStorage.getItem('fullname'));
      }
 
 

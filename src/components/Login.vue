@@ -13,7 +13,7 @@
                                     <div class="row">
 
                                         <div class="col-lg-12 text-center">
-                                           <!-- <img src="images/mock_logo.png"  width="90" alt=""> -->
+                                           <img src="/mock_logo.png"  width="90" alt="">
                                         </div><!--end col-->
 
                                         <div v-if="failed==true" class="alert alert-outline-danger alert-pills" role="alert">
@@ -125,7 +125,7 @@ export default {
             };
             axios(config).then(response => {
 
-                  console.log(response);
+                  //console.log(response);
                   this.reset_credentials();
                   this.isActive = false;
                   this.loading = false;
@@ -135,8 +135,7 @@ export default {
 
             }, error => {
 
-                  console.log(error);
-                  console.log(error.response);
+                  //console.log(error.response);
                   this.isActive = false;
                   this.loading = false;
                   this.message = error.response.data.message;
@@ -180,7 +179,7 @@ export default {
 
     created(){
 
-       console.log(this.foo);
+  
      
     },
 

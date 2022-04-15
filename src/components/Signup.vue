@@ -22,6 +22,17 @@
                                                        <span class="alert-content"> {{message}} </span>
                                                     </div>
 
+
+                                                    <div class="col-md-12">
+                                                        <div class="mb-3"> 
+                                                            <label class="form-label">Full name <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="user-check" class="fea icon-sm icons"></i>
+                                                                <input type="text" class="form-control ps-5" placeholder="Firstname  Lastname" v-model="candidate.fullname" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
                                                             <label class="form-label">Your Email <span class="text-danger">*</span></label>
@@ -43,15 +54,6 @@
                                                         </div>
                                                     </div><!--end col-->
 
-                                                    <div class="col-md-12">
-                                                        <div class="mb-3"> 
-                                                            <label class="form-label">Profession <span class="text-danger">*</span></label>
-                                                            <div class="form-icon position-relative">
-                                                                <i data-feather="user-check" class="fea icon-sm icons"></i>
-                                                                <input type="text" class="form-control ps-5" placeholder="IT Consultant" v-model="candidate.profession" required="">
-                                                            </div>
-                                                        </div>
-                                                    </div><!--end col-->
 
                                                  
 
@@ -133,7 +135,7 @@ export default {
 
       return{
      
-        candidate:{email:"",phone_number:"",profession:"",password:"",confirm_pass:""},
+        candidate:{email:"",phone_number:"",fullname:"",password:"",confirm_pass:""},
         user:{},
         isActive: false,
         failed: false,
@@ -162,7 +164,7 @@ export default {
             };
             axios(config).then(response => {
 
-                  console.log(response);
+                  //console.log(response);
                   this.reset_candidate();
                   this.isActive = false;
                   this.loading = false;
@@ -172,8 +174,7 @@ export default {
 
             }, error => {
 
-                  console.log(error);
-                  console.log(error.response);
+                 // console.log(error.response);
                   this.isActive = false;
                   this.loading = false;
                   this.message = error.response.data.message;
@@ -186,7 +187,7 @@ export default {
 
         reset_candidate(){
 
-            this.candidate = {email:"",phone_number:"",profession:"",password:""};
+            this.candidate = {email:"",phone_number:"",fullname:"",password:""};
         },
 
 
@@ -200,7 +201,7 @@ export default {
            } else if(this.candidate.phone_number=="" || this.candidate.phone_number==null || this.candidate.phone_number==undefined){
               this.message = "Kindly provide phone number";
               this.failed = true;
-           } else if(this.candidate.profession=="" || this.candidate.profession==null || this.candidate.profession==undefined){
+           } else if(this.candidate.fullname=="" || this.candidate.fullname==null || this.candidate.fullname==undefined){
               this.message = "Kindly provide profession";
               this.failed = true;
            } else if(this.candidate.password=="" || this.candidate.password==null || this.candidate.password==undefined){
@@ -214,7 +215,7 @@ export default {
               this.candidate.password="";this.candidate.confirm_pass="";
               this.failed = true;  
            } else {
-              console.log("printing the last else");
+             // console.log("printing the last else");
               this.message = "" ;
               this.failed = false;
               this.send_reg();

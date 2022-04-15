@@ -6,7 +6,7 @@
                                 <ul class="list-unstyled sidebar-nav mb-0" id="navmenu-nav">
 
                                     <li class="navbar-item account-menu px-0 active">
-                                        <a href="#" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                        <a href="/dashboard" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
                                             <h6 class="mb-0 ms-2">Dashboard</h6>
                                         </a>
@@ -14,14 +14,14 @@
                                     
 
                                     <li class="navbar-item account-menu px-0">
-                                        <a href="#" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                        <a href="/profile" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-user"></i></span>
                                             <h6 class="mb-0 ms-2">Profile</h6>
                                         </a>
                                     </li>
                                  
                                     <li class="navbar-item account-menu px-0 mt-2">
-                                        <a href="#" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                        <a href="/my_mocks" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-file"></i></span>
                                             <h6 class="mb-0 ms-2">My Exams</h6>
                                         </a>
@@ -59,7 +59,7 @@
 
 <script >
 
-
+import axios from "axios";
 export default {
 
   name: 'SideMenu',
@@ -80,11 +80,33 @@ export default {
    methods: {
 
 
-       logout_user(){
+        logout_user(){
 
+          this.logout_service();
           this.closing_session();
           this.$router.push('/login'); 
-       }
+        },
+
+
+
+        logout_service() {
+
+                var config = {
+                    method: 'POST',
+                    url: this.api_url+'/onboarding/v1/logout',
+                    headers: { 
+                    'user_token': localStorage.getItem('token'),
+                },
+                    };
+                    
+                axios(config).then(result => {
+   
+                }, error => {
+                   
+                    //console.log(error.response);
+                   
+                });
+        },
 
 
 

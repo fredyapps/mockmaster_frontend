@@ -17,6 +17,11 @@
                     <div class="col-12 text-center">
                         <div class="section-title mb-4 pb-2">
                             <h4 class="title mb-4">CISA Mock Exam</h4>
+                             <h4 class="title mb-4">{{countdown_var}}</h4>
+                            
+                        </div>
+                        <div v-if="failed==true" class="alert alert-outline-danger alert-pills" role="alert">
+                                <span class="alert-content text-center"> {{message}} </span>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -27,6 +32,8 @@
                                                                
                         </div>
                 </div>
+                 
+               
 
                          
             <div  v-if="exam_layout"  class="container">
@@ -56,7 +63,7 @@
                                     
                                 </div>
 
-                                <a v-if="qindex > 10" @click="submit_cisa_exam" class="btn btn-info me-3 mt-3">Submit answers</a>
+                                    <a  class="btn btn-info me-3 mt-3" data-bs-toggle="modal" data-bs-target="#endExamPopup">End Exams</a>
                             </div>
                       
                 </div><!--end row-->
@@ -81,7 +88,7 @@
                                 <div class="p-4">
                                         <div v-for="domain in results.examResult" :key="domain.result_id" class="custom-control custom-radio custom-control-inline">
                                             <div class="form-check mb-0">
-                                               <p class="text-muted"> {{domain.domain_id}} : {{domain.first_score}}</p>
+                                              {{domain.domain_id}}  <p class="text"> ({{domain.domain}}) : <span class="text-primary mb-0"> {{domain.first_score}} </span></p>
                                             </div>
                                         </div>
                                     <!-- :value="option.option_code" -->
@@ -89,6 +96,31 @@
                             </div>
                 </div><!--end row-->
             </div><!--end container-->
+
+                                   <div class="modal fade" id="endExamPopup" tabindex="-1" aria-labelledby="LoginForm-title" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content rounded shadow border-0">
+                                                <div class="modal-header border-bottom">
+                                                    <h5 class="modal-title" id="LoginForm-title"> End Exams :</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                 <div class="custom-control custom-radio custom-control-inline">
+                                                        <div class="form-check mb-0">
+                                                         <p class="text">  Do you really want to end the exam and submit your answers ?</p>
+                                                        </div>
+                                                 </div>
+
+                                                 <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button @click="submit_cisa_exam" data-bs-dismiss="modal" aria-label="Close" type="button" class="btn btn-primary"> Yes </button>
+                                                </div>
+                                                    <!--  -->
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
        
                   
                         </div>
@@ -134,6 +166,10 @@ export default {
           exam_layout:false,
           result_layout:false,
           loading:false,
+          message:"",
+          failed:false,
+          countdown_var :"",
+          the_interval: null
 
 
       }
@@ -158,15 +194,47 @@ export default {
         };
       axios(config).then(result => {
         
-         console.log(result.data);
+        // console.log(result);
          this.questions = result.data.questions;
          this.mock = result.data.mock;
          this.loading = false;
          this.exam_layout = true;
          this.current_question = this.questions[this.qindex];
+
+                        // starting the 4 hours timer countdown 
+                        var countDownDate = new Date().getTime() + (3600*4*1000);
+                        const self = this;
+                    self.the_interval = setInterval(function(){ 
+                               
+                        var now = new Date().getTime();
+                        
+                        // Find the distance between now an the count down date
+                        var distance = countDownDate - now;
+
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        //countdown_var = "kkkkkkkkkk";
+                        console.log( hours + " Hours " + minutes + " Minutes " + seconds + " Seconds "); 
+                        self.countdown_var = hours + " Hours " + minutes + " Minutes " + seconds + " Seconds "; 
+                        
+
+                            if (distance < 0) {
+                                
+                                console.log("end of it");
+                                self.submit_cisa_exam();
+                            }
+
+                            }, 1000);
+                        // end of the 4 hours timer countdown
       }, error => {
           this.loading = false;
-          console.log(error);
+          //console.log(error.response);
+          if(error.response.status==422){
+            
+               this.message = error.response.data.message;
+               this.failed = true;
+          }
       });
     },
 
@@ -175,6 +243,9 @@ export default {
 
 
     submit_cisa_exam(){
+        
+        clearInterval(this.the_interval);
+        this.countdown_var = "";
         this.loading = true;
         this.exam_layout = false;
         var data = JSON.stringify(this.questions);
@@ -194,14 +265,14 @@ export default {
         
         axios(config).then(response => {
          this.loading = false;
-        console.log(response);
-        console.log(JSON.stringify(response.data));
+        //console.log(response);
+       // console.log(JSON.stringify(response.data));
         
         this.result_layout = true;
         this.results = response.data;
         
         }, error => {
-        console.log(error.response);
+             //console.log(error.response);
         });
     
     },
@@ -270,21 +341,15 @@ export default {
 
 
 
+
+
+
      mounted(){
 
       
     }
 }
 
-// var timeleft = 14400;
-// var downloadTimer = setInterval(function(){
-//   if(timeleft <= 0){
-//     clearInterval(downloadTimer);
-//     document.getElementById("countdown").innerHTML = "Finished";
-//   } else {
-//     document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
-//   }
-//   timeleft -= 1;
-// }, 1000);
+
 
 </script>
