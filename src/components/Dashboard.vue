@@ -9,7 +9,7 @@
             <div class="container">
                 <div class="row">
 
-                    <side-menu :initiating_session="initiating_session"  :checking_session="checking_session"  :closing_session="closing_session"></side-menu>
+                    <side-menu :initiating_session="initiating_session"  :checking_session="checking_session"  :closing_session="closing_session"  :dash_active="dash_active"></side-menu>
 
                     <div class="col-lg-8 col-12">
                         <div class="rounded shadow p-4">
@@ -66,7 +66,9 @@ export default {
             tx_ref:"",
             status:"",
             transaction_id:"",
-            trans_mode: false
+            trans_mode: false,
+            dash_active: "navbar-item account-menu px-0 active"
+
 
       }
 

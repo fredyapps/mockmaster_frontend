@@ -11,7 +11,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-lg-2 col-md-3 text-md-start text-center">
-                                        <!-- <img src="images/mock_logo.png" class="avatar avatar-large shadow d-block mx-auto" alt=""> -->
+                                        <img src="/mock_logo.png" class="avatar avatar-large shadow d-block mx-auto" alt="">
                                     </div><!--end col-->
     
                                     <div class="col-lg-10 col-md-9">
@@ -26,12 +26,13 @@
 
                                             <div v-if="take_mock" class="col-md-5 text-md-end text-center">
                                           
-                                                    <a href="/mockexam" class="btn btn-soft-info mt-3">Take a mock</a>
+                                                    <a  class="btn btn-soft-info mt-3" data-bs-toggle="modal" data-bs-target="#startExamPopup">Take a mock</a>
                                           
                                             </div><!--end col-->
    
                                         </div><!--end row-->
                                     </div><!--end col-->
+
                                 </div><!--end row-->
                             </div>
                         </div>
@@ -40,6 +41,31 @@
             </div><!--ed container-->
         </section><!--end section-->
         <!-- Hero End -->
+
+                                    <div class="modal fade" id="startExamPopup" tabindex="-1" aria-labelledby="LoginForm-title" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content rounded shadow border-0">
+                                                <div class="modal-header border-bottom">
+                                                    <h5 class="modal-title" id="LoginForm-title"> Start Mock:</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                 <div class="custom-control custom-radio custom-control-inline">
+                                                        <div class="form-check mb-0">
+                                                         <p class="text">  Please do you want to take your mock exam now ?</p>
+                                                        </div>
+                                                 </div>
+
+                                                 <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                                    <button @click="start_mock_exam"  aria-label="Close" type="button" data-bs-dismiss="modal" class="btn btn-primary"> Yes </button>
+                                                </div>
+                                                    <!--  -->
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
 
 </template>
 
@@ -79,7 +105,7 @@ export default {
 
 
 
-        check_eligibility() {
+            check_eligibility() {
       
                 this.loading = true;
 
@@ -108,6 +134,15 @@ export default {
                    
                 });
             },
+
+
+
+
+            start_mock_exam(){
+
+                this.$router.push('/mockexam');
+
+            }
 
 
         

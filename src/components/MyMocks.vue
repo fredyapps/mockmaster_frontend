@@ -8,7 +8,7 @@
             <div class="container mt-lg-4">
                 <div class="row">
 
-                       <side-menu :initiating_session="initiating_session"  :checking_session="checking_session"  :closing_session="closing_session"></side-menu>
+                       <side-menu :initiating_session="initiating_session"  :checking_session="checking_session"  :closing_session="closing_session"  :exam_active="exam_active"></side-menu>
 
                      <div class="col-lg-8 col-12">
                         <div class="rounded shadow p-4">
@@ -115,7 +115,8 @@ export default {
           loading:false,
           my_mocks:[],
           my_results:[],
-          overall_score:null
+          overall_score:null,
+          exam_active:"navbar-item account-menu px-0 mt-2 active"
 
       }
 

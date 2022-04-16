@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="row">
 
-                    <side-menu :initiating_session="initiating_session"  :checking_session="checking_session"  :closing_session="closing_session"></side-menu>
+                    <side-menu :initiating_session="initiating_session"  :checking_session="checking_session"  :closing_session="closing_session" :prof_active="prof_active"></side-menu>
 
 
                     
@@ -102,6 +102,7 @@ export default {
         fullname:"",
         take_mock:false,
         candidate:{email:"",phone_number:"",fullname:"",profession:""},
+        prof_active:"navbar-item account-menu px-0 active"
 
       }
 

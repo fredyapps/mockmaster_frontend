@@ -5,7 +5,7 @@
                             <div class="widget mt-4">
                                 <ul class="list-unstyled sidebar-nav mb-0" id="navmenu-nav">
 
-                                    <li class="navbar-item account-menu px-0 active">
+                                    <li v-bind:class="[dash_active]">
                                         <a href="/dashboard" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
                                             <h6 class="mb-0 ms-2">Dashboard</h6>
@@ -13,14 +13,14 @@
                                     </li>
                                     
 
-                                    <li class="navbar-item account-menu px-0">
+                                    <li v-bind:class="[prof_active]">
                                         <a href="/profile" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-user"></i></span>
                                             <h6 class="mb-0 ms-2">Profile</h6>
                                         </a>
                                     </li>
                                  
-                                    <li class="navbar-item account-menu px-0 mt-2">
+                                    <li v-bind:class="[exam_active]">
                                         <a href="/my_mocks" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-file"></i></span>
                                             <h6 class="mb-0 ms-2">My Exams</h6>
@@ -64,13 +64,15 @@ export default {
 
   name: 'SideMenu',
 
-  props: [ 'initiating_session','checking_session','closing_session' ],
+  props: [ 'initiating_session','checking_session','closing_session','dash_active','prof_active','exam_active'],
 
   data () {
 
       return{
   
-
+            dash_active:this.dash_active,
+            prof_active:this.prof_active,
+            exam_active:this.exam_active,
 
       }
 

@@ -112,8 +112,8 @@
                                                  </div>
 
                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                    <button @click="submit_cisa_exam" data-bs-dismiss="modal" aria-label="Close" type="button" class="btn btn-primary"> Yes </button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Cancel</button>
+                                                    <button @click="submit_cisa_exam" aria-label="Close" data-bs-dismiss="modal" type="button" class="btn btn-primary"> Yes </button>
                                                 </div>
                                                     <!--  -->
                                                 </div>

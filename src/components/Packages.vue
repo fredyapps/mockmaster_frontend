@@ -22,7 +22,7 @@
                                     <li v-for="item in offer.items" :key="item.item_id" class="h6 text-muted mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>{{item.name}}</li>
                                   
                                 </ul>
-                                <a @click="checkout_page(offer)"  class="btn btn-primary mt-4">Get started</a>
+                                <a v-if="offer.ghc_price!=0" @click="checkout_page(offer)"  class="btn btn-primary mt-4">Get started</a>
                             </div>
                         </div>
                     </div><!--end col-->
