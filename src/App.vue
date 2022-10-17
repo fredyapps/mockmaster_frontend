@@ -89,7 +89,7 @@ export default {
      mounted(){
 
       // this.initiating_session(this.user_data);
-      // this.printing_session();
+      this.printing_session();
       // this.closing_session();
       // this.printing_session();
      
@@ -107,7 +107,7 @@ export default {
 <style>
 /* @import '@/assets/base.css'; */
 @import '@/assets/css/bootstrap.min.css';
-@import '@/assets/css/materialdesignicons.min.css';
+@import '@/assets/css/materialdesignicons.min.css'; 
 @import '@/assets/css/tiny-slider.css';
 @import '@/assets/css/style.css';
 @import '@/assets/css/colors/default.css';

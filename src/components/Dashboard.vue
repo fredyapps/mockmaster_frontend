@@ -27,7 +27,7 @@
 
                                 <mock-packages  v-if="!trans_mode"></mock-packages>
 
-                                <callback-layout v-if="trans_mode" :transaction_id="transaction_id" ></callback-layout>
+                                <callback-layout v-if="trans_mode" :transaction_id="transaction_id"  ></callback-layout>
                   
                         </div>
                     </div><!--end col-->
@@ -66,10 +66,9 @@ export default {
             tx_ref:"",
             status:"",
             transaction_id:"",
+            reference:"",
             trans_mode: false,
             dash_active: "navbar-item account-menu px-0 active"
-
-
       }
 
   }, 
@@ -98,12 +97,11 @@ export default {
     mounted(){
 
           const urlParams = new URLSearchParams(window.location.search);
-          this.status = urlParams.get("status");
-          this.tx_ref = urlParams.get("tx_ref");
+         
           this.transaction_id = urlParams.get("transaction_id");
 
 
-          if(this.status !=null && this.tx_ref!=null){
+          if(this.transaction_id !=null){
             
                 this.trans_mode = true;
           }else{
@@ -111,14 +109,11 @@ export default {
                 this.trans_mode = false;
           }
 
-          console.log("Printing the status");
-          console.log(this.status);  
-
-          console.log("Printing the tx_ref");
-          console.log(this.tx_ref); 
 
           console.log("Printing the transaction_id");
           console.log(this.transaction_id); 
+
+        
 
     }
 

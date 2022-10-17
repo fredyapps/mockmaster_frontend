@@ -131,6 +131,7 @@ export default {
                 }, error => {
                    
                     //console.log(error.response);
+                    this.take_mock = false;
                    
                 });
             },

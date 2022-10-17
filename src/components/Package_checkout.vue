@@ -105,7 +105,7 @@ export default {
                 console.log(this.order);
                 var config = {
                 method: 'post',
-                url: this.api_url+'/themockmasterAPIs/v1/InitiatePayment',
+                url: this.api_url+'/themockmasterAPIs/v2/InitiatePayment',
                 headers: { 
                     'Content-Type': 'application/json',
                     'user_token': localStorage.getItem('token'),
@@ -124,9 +124,9 @@ export default {
                 console.log("printing status");
                 console.log(response.data.status);
                 //
-                if(response.data.status==="success"){
+                if(response.data.status==true){
                     //redirect
-                     window.location.href = response.data.data.link;
+                     window.location.href = response.data.data.authorization_url;
                     
 
                 }else{

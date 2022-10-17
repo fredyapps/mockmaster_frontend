@@ -45,7 +45,7 @@ import axios from "axios";
 export default {
 
   name: 'CallBack',
-  props: [ 'transaction_id'],
+  props: [ 'transaction_id','reference'],
 
   data () {
 
@@ -54,6 +54,7 @@ export default {
         transact:{},
         success_layout: false,
         error_layout: false,
+        reference:""
 
       }
 
@@ -63,22 +64,19 @@ export default {
         methods: {
 
 
-
-
             check_transaction_status() {
       
                 this.loading = true;
-
                 var config = {
                     method: 'GET',
-                    url: this.api_url+'/themockmasterAPIs/v1/checkTransactionStatus/'+this.transaction_id,
+                    url: this.api_url+'/themockmasterAPIs/v2/checkTransactionStatus/'+this.reference,
                     };
                 axios(config).then(result => {
                     
-                   // console.log(result.data);
+                    console.log(result.data);
                     this.transact = result.data;
                     this.loading = false;
-                    if(result.data.status=="success" && result.data.data.status=="successful"){
+                    if(result.data.status==true && result.data.data.status=="success"){
                             this.success_layout = true;
                     }else{
 
@@ -86,7 +84,6 @@ export default {
                             this.error_layout = true;
                     }
                    
-                
                 }, error => {
                     this.loading = false;
                     this.message = "Sorry, something went wrong and we could not confirm your transaction";
@@ -96,13 +93,6 @@ export default {
             },
 
 
-
-
- 
-      
-
-
-        
         },
 
 
@@ -117,7 +107,15 @@ export default {
 
         mounted(){
 
-            this.check_transaction_status();
+            const urlParams = new URLSearchParams(window.location.search);
+            this.reference = urlParams.get("reference");
+            
+            console.log("===========printing reference==========");
+            console.log(this.reference);
+            if(this.reference!=null){
+                this.check_transaction_status();
+            }
+            
 
         }
 
