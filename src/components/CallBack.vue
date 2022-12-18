@@ -15,7 +15,7 @@
                                <i style="font-size:8em" class="text-success bi bi-check2-circle" ></i>  
                             <h1 class="my-4 fw-bold">Thank You !</h1>
                             <p class="text-muted para-desc mx-auto">Your payment was Successful.</p>
-                            <a href="/mockexam" class="btn btn-soft-info mt-3">Take a mock</a>
+                            <a href="/dashboard" class="btn btn-soft-info mt-3">Go to dashboard</a>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->

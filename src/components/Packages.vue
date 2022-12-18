@@ -15,8 +15,10 @@
                                 <div class="d-flex justify-content-center mb-4">
                                     <span class="h4 mb-0 mt-2">GHC</span>
                                     <span class="price h1 mb-0">{{offer.ghc_price}}</span>
-                                    <span class="h4 align-self-end mb-1"></span>
+                                    
                                 </div>
+
+                                <h6 class="title text-secondary mb-4"><span class="h6  mb-1">{{offer.attempts}} Attempts</span></h6>
                                 
                                 <ul class="list-unstyled mb-0 ps-0">
                                     <li v-for="item in offer.items" :key="item.item_id" class="h6 text-muted mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>{{item.name}}</li>

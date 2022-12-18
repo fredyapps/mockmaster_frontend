@@ -35,12 +35,12 @@
                                         </a>
                                     </li>
                                     
-                                    <li class="navbar-item account-menu px-0 mt-2">
+                                    <!-- <li class="navbar-item account-menu px-0 mt-2">
                                         <a href="#" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-setting"></i></span>
                                             <h6 class="mb-0 ms-2">Settings</h6>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     
                                     <li class="navbar-item account-menu px-0 mt-2">
                                         <a @click="logout_user()" href="#" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
