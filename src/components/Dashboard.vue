@@ -109,7 +109,7 @@
                                         
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="images/shop/product/corp.jpeg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
+                                                <!-- <img src="images/shop/product/corp.jpeg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt=""> -->
                                                 <h6 class="mb-0 ms-3"> {{ item.description }}  Exam</h6>
                                             </div>
                                         </td>
