@@ -8,9 +8,9 @@ const app = createApp(App)
 
 
 
-//app.config.globalProperties.api_url = 'https://apis.mymockmaster.com';
+app.config.globalProperties.api_url = 'https://apis.mymockmaster.com';
 
-app.config.globalProperties.api_url = 'http://localhost:9001';
+//app.config.globalProperties.api_url = 'http://localhost:9001';
 
 //app.config.globalProperties.api_url = 'http://ec2-184-73-1-181.compute-1.amazonaws.com:9000';
 
