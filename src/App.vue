@@ -44,6 +44,9 @@ export default {
     },
 
 
+    
+
+
 
     //checking if there is an existing session
     checking_session(){

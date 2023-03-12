@@ -6,12 +6,20 @@
                         </div>
                 </div>
 
+
+                <div class="mb-0 position">
+                    <a @click="go_back()"  class="text-primary h5">Go back</a>
+                                                
+                 </div>
+
+            
+
             <div v-if="offers_layout" class="row align-items-center">
                     <div v-for="offer in offers" :key="offer.package_id" class="col-md-4 col-12 mt-4 pt-2">
                         <div class="card pricing-rates business-rate shadow bg-light rounded text-center border-0">
                             <div v-if="offer.ghc_price==350" class="ribbon ribbon-right ribbon-warning overflow-hidden"><span class="text-center d-block shadow small h6">Best</span></div>
                             <div class="card-body py-5">
-                                <h6 class="title fw-bold text-uppercase text-primary mb-4">{{offer.name}}</h6>
+                                <h6 class="title fw-bold text-uppercase text-primary mb-4">{{offer.exam}} {{offer.name}}</h6>
                                 <div class="d-flex justify-content-center mb-4">
                                     <span class="h4 mb-0 mt-2">GHC</span>
                                     <span class="price h1 mb-0">{{offer.ghc_price}}</span>
@@ -44,8 +52,9 @@ import Package_checkout from './Package_checkout.vue'
 export default {
 
   name: 'Packages',
-     components: {
-    'checkout-page': Package_checkout,
+        props: [ 'exam_name'],
+        components: {
+        'checkout-page': Package_checkout,
   },
 
   data () {
@@ -74,10 +83,13 @@ export default {
         var config = {
             method: 'GET',
             url: this.api_url+'/examAPIs/v1/packages',
+            headers: { 
+                    'exam_name': this.exam_name,
+                }, 
             };
         axios(config).then(result => {
             
-            //console.log(result.data);
+            console.log(result.data);
             this.offers = result.data;
             this.loading = false;
             this.offers_layout = true;
@@ -94,6 +106,11 @@ export default {
               this.offers_layout = false;
               this.checkout_layout = true;
               this.offering = the_offer;
+    },
+
+    go_back(){
+
+       location.reload();
     }
 
 
@@ -102,7 +119,8 @@ export default {
 
 
    created(){
-
+     console.log("printing the exam name :");
+     console.log(this.exam_name);
      this.get_packages();
    }
 

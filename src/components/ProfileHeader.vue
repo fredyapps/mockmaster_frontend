@@ -159,7 +159,7 @@ export default {
         mounted(){
 
             this.loading_header_info();
-            this.check_eligibility();
+            //this.check_eligibility();
 
         }
 

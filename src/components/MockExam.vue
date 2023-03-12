@@ -9,15 +9,15 @@
             <div class="container mt-lg-4">
                 <div class="row">
 
-                     <side-menu :initiating_session="initiating_session"  :checking_session="checking_session"  :closing_session="closing_session"></side-menu>
+                     <side-menu  v-if="isVisible" :initiating_session="initiating_session"  :checking_session="checking_session"  :closing_session="closing_session"></side-menu>
 
                     <div class="col-lg-8 col-12">
                         <div class="rounded shadow p-4">
                               <div class="row justify-content-center">
                     <div class="col-12 text-center">
                         <div class="section-title mb-4 pb-2">
-                            <h4 class="title mb-4">CISA Mock Exam</h4>
-                             <h4 class="title mb-4">{{countdown_var}}</h4>
+                            <h4 class="title mb-4">{{ examid }} Mock Exam</h4>
+                            <h4 class="title mb-4">{{countdown_var}}</h4>
                             
                         </div>
                         <div v-if="failed==true" class="alert alert-outline-danger alert-pills" role="alert">
@@ -75,7 +75,7 @@
                 <div class="row justify-content-center">
                         <div id="countdown"></div>
                             <div class="card-body">
-                                <h5 class="card-title">Your CISA Exam Score is : {{results.exam_score}}</h5>
+                                <h5 class="card-title">Your {{examid}} Exam Score is : {{results.exam_score}}</h5>
                                 
                                  <h5 class="card-title">Status : 
 
@@ -113,7 +113,7 @@
 
                                                  <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Cancel</button>
-                                                    <button @click="submit_cisa_exam" aria-label="Close" data-bs-dismiss="modal" type="button" class="btn btn-primary"> Yes </button>
+                                                    <button @click="submit_mock_exam" aria-label="Close" data-bs-dismiss="modal" type="button" class="btn btn-primary"> Yes </button>
                                                 </div>
                                                     <!--  -->
                                                 </div>
@@ -169,7 +169,12 @@ export default {
           message:"",
           failed:false,
           countdown_var :"",
-          the_interval: null
+          the_interval: null,
+          isVisible : true,
+          examid:"",
+          mock_uri:"",
+          result_uri:""
+          
 
 
       }
@@ -181,24 +186,27 @@ export default {
 
 
 
-    new_cisa_exam() {
+    new_mock_exam() {
       
       this.loading = true;
 
        var config = {
         method: 'GET',
-        url: this.api_url+'/examAPIs/v1/cisaQuestions',
+        //url: this.api_url+'/examAPIs/v1/cisaQuestions',
+        url: this.api_url+this.mock_uri,
         headers: { 
             'user_token': localStorage.getItem('token'),
         }
         };
+        console.log(this.api_url+this.mock_uri);
       axios(config).then(result => {
         
-        // console.log(result);
+        console.log(result);
          this.questions = result.data.questions;
          this.mock = result.data.mock;
          this.loading = false;
          this.exam_layout = true;
+         this.isVisible = false;
          this.current_question = this.questions[this.qindex];
 
                         // starting the 4 hours timer countdown 
@@ -222,14 +230,14 @@ export default {
                             if (distance < 0) {
                                 
                                 console.log("end of it");
-                                self.submit_cisa_exam();
+                                self.submit_mock_exam();
                             }
 
                             }, 1000);
                         // end of the 4 hours timer countdown
       }, error => {
           this.loading = false;
-          //console.log(error.response);
+          console.log(error);
           if(error.response.status==422){
             
                this.message = error.response.data.message;
@@ -242,7 +250,7 @@ export default {
 
 
 
-    submit_cisa_exam(){
+    submit_mock_exam(){
         
         clearInterval(this.the_interval);
         this.countdown_var = "";
@@ -252,7 +260,7 @@ export default {
         
         var config = {
         method: 'post',
-        url: this.api_url+'/examAPIs/v1/cisaResults',
+        url: this.api_url+this.result_uri,
         headers: { 
             'Content-Type': 'application/json',
             'exam_token': this.mock.exam_token,
@@ -261,18 +269,20 @@ export default {
         data : data
         };
 
+        console.log(this.api_url+this.result_uri);
+
         //https://tmmbackend.herokuapp.com/examAPIs/v1/cisaQuestions
         
         axios(config).then(response => {
          this.loading = false;
-        //console.log(response);
+        console.log(response);
        // console.log(JSON.stringify(response.data));
-        
+        this.isVisible = true;
         this.result_layout = true;
         this.results = response.data;
         
         }, error => {
-             //console.log(error.response);
+             console.log(error);
         });
     
     },
@@ -305,6 +315,7 @@ export default {
 
     }
 
+
    },
 
  
@@ -313,7 +324,9 @@ export default {
 
          if(this.checking_session()){
 
-                this.new_cisa_exam() ;
+         
+
+               // this.new_mock_exam() ;
 
                 this.$watch('pick', (newQuestion) => {
                 // ...
@@ -345,7 +358,26 @@ export default {
 
 
      mounted(){
+       
+        const urlParams = new URLSearchParams(window.location.search);
+            this.examid = urlParams.get("examid");
+            
+            console.log("===========printing examid==========");
+            console.log(this.examid);
 
+            if(this.examid=="CISA"){
+                this.mock_uri = "/examAPIs/v1/cisaQuestions";
+                this.result_uri = "/examAPIs/v1/cisaResults";
+
+            }else if(this.examid=="CISM"){
+
+                this.mock_uri = "/examAPIs/v1/cismQuestions";
+                this.result_uri = "/examAPIs/v1/cismResults";
+            }
+
+            this.new_mock_exam() ;
+
+           
       
     }
 }
