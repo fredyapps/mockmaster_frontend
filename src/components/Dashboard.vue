@@ -38,7 +38,7 @@
                                 <div class="card job-box rounded shadow border-0 overflow-hidden">
                                     <div class="border-bottom">
                                         <div class="position-relative">
-                                            <img src="images/CISA.svg" class="img-fluid" alt="">
+                                            <img src="/CISA.svg" class="img-fluid" alt="">
                                             <div class="job-overlay bg-white"></div>
                                         </div>
                                         <div class="mb-0 position"><a href="course_details.html" class="text-dark h5"></a>
@@ -67,7 +67,7 @@
                                         <div class="card job-box rounded shadow border-0 overflow-hidden">
                                             <div class="border-bottom">
                                                 <div class="position-relative">
-                                                    <img src="images/CISM.svg" class="img-fluid" alt="">
+                                                    <img src="/CISM.svg" class="img-fluid" alt="">
                                                     <div class="job-overlay bg-white"></div>
                                                 </div>
                                                
