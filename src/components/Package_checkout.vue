@@ -6,9 +6,15 @@
                         <div class="col-lg-12 col-12">
                     
                             <h5 class="col-12">Exam: </h5>
-                            <p class="text-muted">
+                            <p v-if="offering.exam=='CISA'" class="text-muted">
                                 The CISA exam lasts <span class="text-primary mb-0">4 hours</span> and consists of <span class="text-primary mb-0">150 multiple-choice </span> questions. The exam tests candidates’ knowledge of five job practice domains: The Process of Auditing Information Systems; Government and Management of IT; Information Systems Acquisition, Development, and Implementation; Information Systems Operations, Maintenance and Service Management; and Protection of Information Assets. Candidates must score <span class="text-primary mb-0"> 450 </span>  to pass the exam. The exam scores on a scale between 200 and 800.
                              </p>
+
+                             <p v-if="offering.exam=='CISM'" class="text-muted">
+                                The Certified Information Security Manager® (CISM®) exam lasts <span class="text-primary mb-0">4 hours</span> and consists of
+                                 <span class="text-primary mb-0">150 multiple-choice </span> questions questions covering 4 job practice domains, all testing your knowledge and ability on real-life job practices leveraged by expert professionals. Below are the key domains, subtopics and tasks candidates will be tested on: Information Security Governance, Risk Management, Information Security Program Development and Management, and Information Security Incident Management. Candidates must score 450 to pass the exam. The exam scores on a scale between 200 and 800.
+                             </p>
+
 
                               <h5 class="col-12">The Package: </h5>
                              

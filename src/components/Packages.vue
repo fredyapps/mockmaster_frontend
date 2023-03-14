@@ -102,7 +102,8 @@ export default {
 
 
     checkout_page(the_offer){
-
+              console.log("=========================offering===========================");
+              console.log(the_offer);
               this.offers_layout = false;
               this.checkout_layout = true;
               this.offering = the_offer;
