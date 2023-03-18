@@ -32,7 +32,28 @@
                                                                
                         </div>
                 </div>
+
+
+            <!-- confirming the will of starting the exam -->
+
+            <div v-if="confirm_to_take_mock" class="container">
+                <div class="row justify-content-center">
+                        <div id="countdown"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Start your Exam :</h5>
+
+                                <div class="form-check mb-0">
+                                        <p class="text">  Do you really want to take your Mock Exam now ?</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                    <button @click="back_to_dashboard" type="button" class="btn btn-secondary" >Cancel</button>
+                                    <button @click="new_mock_exam" aria-label="Close" data-bs-dismiss="modal" type="button" class="btn btn-primary"> Yes </button>
+                            </div>
+                </div><!--end row-->
+            </div><!--end container-->
                  
+            <!--  -->
                
 
                          
@@ -40,7 +61,7 @@
                 <div class="row justify-content-center">
                    
                         <!-- <div id="countdown"></div> -->
-                       
+
                             <div class="card-body">
                                 <h5 class="card-title">Question : {{qindex+1}}</h5>
                                 <p class="text-muted"> {{current_question.question_text}}</p>
@@ -93,6 +114,7 @@
                                         </div>
                                     <!-- :value="option.option_code" -->
                                 </div>
+                                <h7 class="card-title"><button @click="back_to_dashboard" class="text-primary mb-0">Go back to Dashboard </button></h7>
                             </div>
                 </div><!--end row-->
             </div><!--end container-->
@@ -121,6 +143,13 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <!--  -->
+
+                 
+
+                                    <!--  -->
        
                   
                         </div>
@@ -173,7 +202,8 @@ export default {
           isVisible : true,
           examid:"",
           mock_uri:"",
-          result_uri:""
+          result_uri:"",
+          confirm_to_take_mock:true
           
 
 
@@ -186,11 +216,26 @@ export default {
 
 
 
+    back_to_dashboard(){
+
+        this.$router.push('/dashboard');
+    },
+
+
+    start_mock_exam(){
+      
+        console.log("===========starting exam now ==================");
+    },
+
+
+
     new_mock_exam() {
       
-      this.loading = true;
 
-       var config = {
+        this.confirm_to_take_mock = false;
+        this.loading = true;
+
+        var config = {
         method: 'GET',
         //url: this.api_url+'/examAPIs/v1/cisaQuestions',
         url: this.api_url+this.mock_uri,
@@ -251,7 +296,8 @@ export default {
 
 
     submit_mock_exam(){
-        
+
+        this.confirm_to_take_mock = false;
         clearInterval(this.the_interval);
         this.countdown_var = "";
         this.loading = true;
@@ -323,10 +369,7 @@ export default {
     created(){
 
          if(this.checking_session()){
-
-         
-
-               // this.new_mock_exam() ;
+                
 
                 this.$watch('pick', (newQuestion) => {
                 // ...
@@ -375,7 +418,7 @@ export default {
                 this.result_uri = "/examAPIs/v1/cismResults";
             }
 
-            this.new_mock_exam() ;
+            //this.new_mock_exam() ;
 
            
       
