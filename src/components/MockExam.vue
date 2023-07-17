@@ -43,7 +43,7 @@
                                 <h5 class="card-title">Start your Exam :</h5>
 
                                 <div class="form-check mb-0">
-                                        <p class="text">  Do you really want to take your Mock Exam now ?</p>
+                                        <p class="text" >  Do you really want to take your Mock Exam now ?</p>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -61,7 +61,6 @@
                 <div class="row justify-content-center">
                    
                         <!-- <div id="countdown"></div> -->
-
                             <div class="card-body">
                                 <h5 class="card-title">Question : {{qindex+1}}</h5>
                                 <p class="text-muted"> {{current_question.question_text}}</p>
@@ -85,6 +84,43 @@
                                 </div>
 
                                     <a  class="btn btn-info me-3 mt-3" data-bs-toggle="modal" data-bs-target="#endExamPopup">End Exams</a>
+                            </div>
+                      
+                </div><!--end row-->
+            </div><!--end container-->
+
+
+            <div  v-if="failed_question_layout"  class="container">
+                <div class="row justify-content-center">
+                   
+                        <!-- <div id="countdown"></div> -->
+                            <div class="card-body">
+                                <h5 class="card-title">Question : {{qindex+1}}</h5>
+                                <p class="text-muted"> {{current_question.question_text}}</p>
+                            
+                                <h5 class="card-title">The Correct answer is highlighted below: </h5>
+                                <div class="p-4">
+                                        <div v-for="option in current_question.options" :key="option.option_id" class="custom-control custom-radio custom-control-inline">
+                                        
+                                            <div  class="form-check mb-0">
+                                                <!-- <input class="form-check-input" :value="option.option_code" v-model="pick" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> -->
+                                                <label v-if="current_question.question_answer==option.option_code" style="border-style:solid;border-color:green;" class="form-check-label" for="flexRadioDefault1">{{ option.option_code }}) {{option.option_text}}</label>
+                                                <label v-else-if="current_question.candidateAnswer==option.option_code" style="border-style:solid;border-color:red;" class="form-check-label" for="flexRadioDefault1">{{ option.option_code }}) {{option.option_text}}</label>
+                                                
+                                                <label v-else class="form-check-label" for="flexRadioDefault1">{{ option.option_code }}) {{option.option_text}}</label>
+                                            </div>
+                                        </div>
+                                    <!-- :value="option.option_code" -->
+                                </div>
+    
+                                <div class="p-4">
+
+                                    <a @click="go_previous" class="btn btn-primary me-2 mt-2">Previous</a>
+                                    <a @click="go_next" class="btn btn-primary me-2 mt-2">Next</a>
+                                    
+                                </div>
+
+                                <h7 class="card-title"><button @click="back_to_dashboard" class="btn btn-secondary me-2 mt-2">Go back to Dashboard </button></h7>
                             </div>
                       
                 </div><!--end row-->
@@ -114,7 +150,9 @@
                                         </div>
                                     <!-- :value="option.option_code" -->
                                 </div>
-                                <h7 class="card-title"><button @click="back_to_dashboard" class="text-primary mb-0">Go back to Dashboard </button></h7>
+                                <h7 ><button @click="back_to_dashboard" class="btn btn-info me-2 mt-2">Go back to Dashboard </button></h7>
+
+                                <h7 ><button @click="show_wrong_answers" class="btn btn-secondary me-2 mt-2">Check my wrong answers </button></h7>
                             </div>
                 </div><!--end row-->
             </div><!--end container-->
@@ -128,8 +166,8 @@
                                                 </div>
                                                 <div class="modal-body">
                                                  <div class="custom-control custom-radio custom-control-inline">
-                                                        <div class="form-check mb-0">
-                                                         <p class="text">  Do you really want to end the exam and submit your answers ?</p>
+                                                        <div class="form-check mb-0" >
+                                                         <p class="text" >  Do you really want to end the exam and submit your answers ?</p>
                                                         </div>
                                                  </div>
 
@@ -144,14 +182,8 @@
                                         </div>
                                     </div>
 
-
                                     <!--  -->
-
-                 
-
                                     <!--  -->
-       
-                  
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -187,12 +219,14 @@ export default {
 
       return{
           questions:[],
+          failed_questions:[],
           mock:{},
           results:{},
           current_question:{},
           qindex:0,
           pick:0,
           exam_layout:false,
+          failed_question_layout:false,
           result_layout:false,
           loading:false,
           message:"",
@@ -225,6 +259,7 @@ export default {
     start_mock_exam(){
       
         console.log("===========starting exam now ==================");
+        console.log("===========");console.log(questions.length);
     },
 
 
@@ -293,6 +328,37 @@ export default {
 
 
 
+    show_wrong_answers(){
+
+        console.log("===========printing show_wrong_answers ==================");
+        console.log(this.questions.length);
+
+          this.qindex = 0;
+          this.result_layout = false;
+          this.failed_question_layout = true;
+          this.exam_layout = false;
+   
+    },
+
+
+
+
+    showFailedQuestions(questions){
+      
+        for (let i = 0; i < questions.length; i++) {
+            text += cars[i] + "<br>";
+            if(questions[i].question_answer!==questions[i].candidateAnswer){
+                this.failed_questions.push(questions[i]);
+              
+            }
+        }
+        this.questions = [];
+        this.questions = this.failed_questions;
+          
+    },
+
+
+
 
 
     submit_mock_exam(){
@@ -353,7 +419,7 @@ export default {
         this.pick = 0;
         console.error("going next");
 
-          if(this.qindex<149){
+          if(this.qindex < this.questions.length - 1){
             this.qindex++
         }
        this.current_question = this.questions[this.qindex];
@@ -418,7 +484,7 @@ export default {
                 this.result_uri = "/examAPIs/v1/cismResults";
             }
 
-            //this.new_mock_exam() ;
+            //this.new_mock_exam() ;   border-style:solid;border-color:coral;
 
            
       
